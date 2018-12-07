@@ -7,11 +7,11 @@ var moment = require('moment');
 moment().format();
 
 // Global variable for app
-var keys = require("./keys"); //This contains hidden keys, called by
-var axios = require("axios") //
-var moment = require("moment");
-var Spotify = require("node-spotify-api");
-var spotify = new Spotify(keys.spotify);
+var keys = require("./keys"); // Link to hidden keys, called by the APIs
+var axios = require("axios") //  Link to axios npm
+var moment = require("moment"); // Link to moment npm
+var Spotify = require("node-spotify-api"); // Link to spotfy npm
+var spotify = new Spotify(keys.spotify); // creats instance of Spotify key
 
 // Takes in the "argument" typed into the console
 // Remember, first argument will alwasys be [2] in any node object
@@ -29,21 +29,26 @@ let term = process.argv.slice(3).join(" ");
 function concertThis(artist) {
     axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp")
         .then(function (response) {
-            var concertData = response.data
-            console.log(concertData)
+            // var concertData = response.data
+            console.log(response)
             // console.log(concertData.venue.name)
             // console.log(concertData.datetime)
-
-            
-
         });
 }
 // When movie-this is typed this function calls movie from OMDB API
 function movieThis(movieName) {
+
+    // Mr. Nobody if user doesn't specify a movie.
+    if (movieName == "") {
+        movieName = "Mr. Nobody"
+    }
+    // Call to and responce from omdb API
     axios.get("http://www.omdbapi.com/?t=" + movieName + "&y=&plot=full&tomatoes=true&apikey=" + process.env.MOVIE_SECRET)
         .then(function (response) {
+
             var data = response.data
             // console.log(response.data);
+            console.log("-------------------------------");
             console.log("* Title: " + data.Title);
             console.log("* Year: " + data.Year);
             console.log("* IMDB: " + data.Ratings[0].Value);
@@ -52,8 +57,10 @@ function movieThis(movieName) {
             console.log("* Language: " + data.Language);
             console.log("* Plot: " + data.Plot);
             console.log("* Actors: " + data.Actors);
+            console.log("---------------------------------");
         })
-    // Mr. Nobody if no movie title is input.
+
+
 }
 
 // If statement to run a function
@@ -70,6 +77,8 @@ else if (action == "movie-this") {
     movieThis(term)
 
 }
+
+
 
 
 

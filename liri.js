@@ -20,25 +20,33 @@ let action = process.argv[2];
 // Joins all the other arguments together
 let term = process.argv.slice(3).join(" ");
 
-
-// concert-this function gets
-/* -Name of venue, -Name of location, -Date of the Event 
-(Need MomentJs to format as MM/DD/YY)*/
-
-// When concert-this is typed, this function calls Bands in Town Artist Events API
+// ================================concert-this===============================
+// When concert-this is typed, this function calls Bands in Town artist events API
 function concertThis(artist) {
     axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp")
         .then(function (response) {
-            // var concertData = response.data
-            console.log(response)
-            // console.log(concertData.venue.name)
-            // console.log(concertData.datetime)
+
+            var concertData = response.data
+
+            for (var i = 0; i < concertData.length; i++) {
+                console.log("-------------------------------------")
+                console.log(concertData[i].venue.name);
+                console.log(concertData[i].venue.city);
+                console.log(moment(concertData[i].datetime).format("MM/DD/YY"));
+                console.log("-------------------------------------")
+            }
+
+
+        })
+        .catch(function (err) {
+            console.log(err);
         });
 }
+// =======================movie this======================================
 // When movie-this is typed this function calls movie from OMDB API
 function movieThis(movieName) {
 
-    // Mr. Nobody if user doesn't specify a movie.
+    // Default set as Mr. Nobody if user doesn't specify a movie.
     if (movieName == "") {
         movieName = "Mr. Nobody"
     }
@@ -47,7 +55,7 @@ function movieThis(movieName) {
         .then(function (response) {
 
             var data = response.data
-            // console.log(response.data);
+
             console.log("-------------------------------");
             console.log("* Title: " + data.Title);
             console.log("* Year: " + data.Year);
@@ -59,9 +67,51 @@ function movieThis(movieName) {
             console.log("* Actors: " + data.Actors);
             console.log("---------------------------------");
         })
-
-
+        .catch(function (err) {
+            console.log(err);
+        });
 }
+
+// =================================spotify-this-song==========================
+// When spotify-this-song is typed this function calls song from Spotify API
+function spotifyThisSong(songName) {
+
+    // Default set as "The Sign" by Ace of Base if user doesn't specify a song.
+    if (songName == "") {
+        // songName = "The Sign"
+       spotify.get("https://api.spotify.com/v1/artists/5ksRONqssB7BR161NTtJAm/search?q=The%20sign&type=track&limit=1")
+        .then(function (response) {
+            console.log(response);
+        });
+        
+        // // https://api.spotify.com/v1/artists/{id}/top-tracks
+        // console.log("-----------------------------")
+        // console.log("Song Title: " + spotifyResponse.items[9].name);
+        // console.log("Album: " + spotifyResponse.items[9].album.name);
+        // console.log("Artist/s: " + spotifyResponse.items[9].artists[0].name);
+        // console.log("Preview URL: " + spotifyResponse.items[9].external_urls.spotify);
+        // console.log("-----------------------------")
+    };
+    // URL for this one is defined inside "node-spotify-api". Therefore it only needs arguments as shown below.
+    spotify.search({ type: 'track', query: songName, limit: 10 })
+        .then(function (response) {
+
+            var spotifyResponse = response.tracks
+
+            for (var i = 0; i < spotifyResponse.items.length; i++) {
+                console.log("-----------------------------")
+                console.log("Song Title: " + spotifyResponse.items[i].name);
+                console.log("Album: " + spotifyResponse.items[i].album.name);
+                console.log("Artist/s: " + spotifyResponse.items[i].artists[0].name);
+                console.log("Preview URL: " + spotifyResponse.items[i].external_urls.spotify);
+                console.log("-----------------------------")
+            }
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
+
 
 // If statement to run a function
 if (action == "concert-this") {
@@ -71,7 +121,7 @@ else if (action == "do-what-it-says") {
     doWhatItSays(term);
 }
 else if (action == "spotify-this-song") {
-    spotifyThis()
+    spotifyThisSong(term)
 }
 else if (action == "movie-this") {
     movieThis(term)
@@ -83,10 +133,7 @@ else if (action == "movie-this") {
 
 
 
-// node liri.js spotify-this-song '<song name here>'
-/* 
-- Artist(s), - The song's name, - A preview link of the song from Spotify
--The album that the song is from */
+
 
 
 

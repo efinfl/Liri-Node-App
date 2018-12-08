@@ -10,7 +10,8 @@ Allows user to input the name of a band or artist and returns the vene name, cit
 
 #### Demo
 <img src="https://github.com/efinfl/Liri-Node-App/blob/master/concert-this demo.gif">
-You may also click link below for original screencast of this gif.
+You may also click link for original screencast of this gif: 
+
 https://drive.google.com/open?id=196TsUuTnDgqSdXzY5ly0KTbBu-smkYZm
 
 

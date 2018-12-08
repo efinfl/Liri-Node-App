@@ -78,19 +78,7 @@ function spotifyThisSong(songName) {
 
     // Default set as "The Sign" by Ace of Base if user doesn't specify a song.
     if (songName == "") {
-        // songName = "The Sign"
-       spotify.get("https://api.spotify.com/v1/artists/5ksRONqssB7BR161NTtJAm/search?q=The%20sign&type=track&limit=1")
-        .then(function (response) {
-            console.log(response);
-        });
-        
-        // // https://api.spotify.com/v1/artists/{id}/top-tracks
-        // console.log("-----------------------------")
-        // console.log("Song Title: " + spotifyResponse.items[9].name);
-        // console.log("Album: " + spotifyResponse.items[9].album.name);
-        // console.log("Artist/s: " + spotifyResponse.items[9].artists[0].name);
-        // console.log("Preview URL: " + spotifyResponse.items[9].external_urls.spotify);
-        // console.log("-----------------------------")
+        songName = "The Sign";
     };
     // URL for this one is defined inside "node-spotify-api". Therefore it only needs arguments as shown below.
     spotify.search({ type: 'track', query: songName, limit: 10 })
@@ -98,13 +86,22 @@ function spotifyThisSong(songName) {
 
             var spotifyResponse = response.tracks
 
+            if (songName == "The Sign") {
+                return (console.log("-----------------------------" + "\n",
+                    "Song Title: " + spotifyResponse.items[8].name + "\n",
+                    "Album: " + spotifyResponse.items[8].album.name + "\n",
+                    "Artist/s: " + spotifyResponse.items[8].artists[0].name + "\n",
+                    "Preview URL: " + spotifyResponse.items[8].external_urls.spotify + "\n",
+                    "-----------------------------"));
+
+            }
             for (var i = 0; i < spotifyResponse.items.length; i++) {
-                console.log("-----------------------------")
+                console.log("-----------------------------");
                 console.log("Song Title: " + spotifyResponse.items[i].name);
                 console.log("Album: " + spotifyResponse.items[i].album.name);
                 console.log("Artist/s: " + spotifyResponse.items[i].artists[0].name);
                 console.log("Preview URL: " + spotifyResponse.items[i].external_urls.spotify);
-                console.log("-----------------------------")
+                console.log("-----------------------------");
             }
         })
         .catch(function (err) {
@@ -121,11 +118,15 @@ else if (action == "do-what-it-says") {
     doWhatItSays(term);
 }
 else if (action == "spotify-this-song") {
-    spotifyThisSong(term)
+    spotifyThisSong(term);
 }
 else if (action == "movie-this") {
-    movieThis(term)
+    movieThis(term);
 
+}
+else if (action == "do-what-it-says`") {
+    var randomText = fs.readFileSync('random.text','utf8');
+    console.log (randomText);
 }
 
 

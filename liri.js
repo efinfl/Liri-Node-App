@@ -42,7 +42,7 @@ function concertThis(artist) {
             console.log(err);
         });
 }
-// =======================movie this======================================
+// =======================movie-this======================================
 // When movie-this is typed this function calls movie from OMDB API
 function movieThis(movieName) {
 
@@ -124,10 +124,18 @@ else if (action == "movie-this") {
     movieThis(term);
 
 }
-else if (action == "do-what-it-says`") {
-    var randomText = fs.readFileSync('random.text','utf8');
-    console.log (randomText);
+
+else if (action == "do-what-it-says") {
+    
+    // Read random.text and puts its data inot randomText variable
+    // var randomText = fs.readFileSync("random.text",'utf8');
+    // console.log (randomText);
+    
+    spotifyThisSong(randomText);
 }
+
+
+
 
 
 

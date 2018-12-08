@@ -1,16 +1,16 @@
 # Liri-Node-App
-A command line node app that returns data when given speciv perameters
+This is a command line node app that returns data when given speciv perameters
 
 ## Possible perameters and thier outputs:
 
 ### concert-this
 Queries into Bandsintown API via Axios npm.
 
-Allows user to input the name of a band or artist and returns the vene name, city, and dates for upcoming concerts being held by that band or artist.
+Allows user to input the name of a band or artist and returns the vene name, city, and dates for upcoming concerts.
 
 #### Demo
 <img src="https://github.com/efinfl/Liri-Node-App/blob/master/concert-this demo.gif">
-##### You may also click link blow for original video of this gif
+You may also click link below for original screencast of this gif.
 https://drive.google.com/open?id=196TsUuTnDgqSdXzY5ly0KTbBu-smkYZm
 
 
